@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Breeder AI 🧬</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'Consolas', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      background: #161b22;
+      color: white;
+      border: 1px solid #30363d;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #238636;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    pre {
+      background: #161b22;
+      padding: 15px;
+      width: 80%;
+      border-radius: 10px;
+      color: #9ecbff;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧬 Code Breeder AI</h1>
+  <p>Generate & evolve Python code using AI-inspired algorithms</p>
+  <textarea id="desc" placeholder="Describe your coding problem..."></textarea>
+  <button onclick="evolve()">Evolve Code</button>
+  <pre id="output">Your evolved code will appear here...</pre>
+
+  <script>
+    async function evolve() {
+      const desc = document.getElementById('desc').value;
+      const output = document.getElementById('output');
+      output.textContent = "Breeding new code... 🔄";
+
+      const res = await fetch("http://127.0.0.1:8000/evolve", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({description: desc})
+      });
+
+      const data = await res.json();
+      output.textContent = 
+`🧠 Best Snippet (Fitness: ${data.fitness})
+------------------------------------
+${data.best_snippet}
+`;
+    }
+  </script>
+</body>
+</html>
