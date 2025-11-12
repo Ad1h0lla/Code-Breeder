@@ -1,0 +1,6 @@
+Code-Breeder-AI/
+│
+├── main.py
+├── index.html
+├── requirements.txt
+└── .env   # for API key
